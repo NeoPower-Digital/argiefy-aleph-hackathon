@@ -15,7 +15,10 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   console.log('MiniKit installed: ', MiniKit.isInstalled());
   const [state, setState] = useState({});
+
+
   useEffect(() => {
+
     if (!MiniKit.isInstalled()) {
       return;
     }
