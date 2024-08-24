@@ -1,11 +1,13 @@
 "use client";
 
 import Benefits from "./Benefits";
+import ProfileHeader from "./ProfileHeader";
 
 const ArgiefyClub = () => {
   return (
     <>
-      <div>Profile Header Section </div>
+      <ProfileHeader/>
+      
       <div>Claim rewards section</div>
 
       <Benefits />

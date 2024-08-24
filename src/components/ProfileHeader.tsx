@@ -41,27 +41,28 @@ export default function Component() {
                 a 15.9155 15.9155 0 0 1 0 31.831
                 a 15.9155 15.9155 0 0 1 0 -31.831"
               fill="none"
-              stroke="#3b82f6"
+              stroke="#179DD7"
               strokeWidth="4"
               strokeDasharray={`${progress}, 100`}
               
             />
           </svg>
-          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold">
+          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-[#179DD7]">
             {currentLevel}
           </span>
         </div>
         <div>
-          <h2 className="text-xl font-bold mb-1">You are on Level {currentLevel}</h2>
-          <p className="text-blue-400 mb-1">Your points: {currentPoints}</p>
+            
+          <h2 className="text-xl font-bold mb-1 flex">You are on<p className='text-[#179DD7] pl-1'>Level {currentLevel}</p></h2>
+          <p className="mb-1">Your points: {currentPoints}</p>
           <p className="text-sm text-gray-400">With {pointsToLevelUp} points, you level up</p>
         </div>
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-          <Button variant="outline" className="bg-gray-800 text-white border-gray-700 h-16 px-4 flex flex-col items-center justify-center">
-            <span>Club Card</span>
+          <Button variant="outline" className="bg-gray-800 text-gray-400 h-16 px-2 mx-1 flex flex-col items-center justify-center">
             <CreditCard className="mt-1" size={20} />
+            <span>Club Card</span>
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px] bg-gray-800 text-white">
