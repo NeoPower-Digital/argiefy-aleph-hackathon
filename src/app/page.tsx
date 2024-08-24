@@ -5,6 +5,7 @@ import {
   handleVerifyIdKit,
   handleMiniKitSubscription,
 } from '@/lib/utils/worldcoin';
+import useSupabase from '@/lib/hooks/useSupabase';
 import { IDKitWidget } from '@worldcoin/idkit';
 import {
   ISuccessResult,
@@ -29,7 +30,21 @@ export default function Home() {
   console.log('MiniKit installed: ', MiniKit.isInstalled());
   const [state, setState] = useState({});
 
+  const { getUser, validateUserWorldcoin } = useSupabase();
+
+  const test = async () => {
+    const data = await getUser('221b6a90-e61f-4ffc-b8fd-93ac192eb6bc');
+    const data2 = await validateUserWorldcoin(
+      '221b6a90-e61f-4ffc-b8fd-93ac192eb6bc'
+    );
+
+    console.log(data);
+    console.log(data2);
+  };
+
   useEffect(() => {
+    test();
+
     if (!MiniKit.isInstalled()) {
       return;
     }
