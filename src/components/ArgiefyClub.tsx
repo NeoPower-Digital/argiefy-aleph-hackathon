@@ -6,13 +6,13 @@ import ProfileHeader from "./ProfileHeader";
 
 const ArgiefyClub = () => {
   return (
-    <>
-      <ProfileHeader/>
+    <div className="space-y-4">
+      <ProfileHeader />
+
       <ButtonClaimMatecito />
-      <div>Claim rewards section</div>
 
       <Benefits />
-    </>
+    </div>
   );
 };
 
