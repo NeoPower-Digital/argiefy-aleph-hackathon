@@ -11,8 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CreditCard } from "lucide-react";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import CircularProgressBar from "./CircularProgressBar";
+
 
 export default function Component() {
   const [open, setOpen] = useState(false);
@@ -30,24 +30,10 @@ export default function Component() {
   return (
     <div className="w-full max-w-md p-4 text-white rounded-lg flex items-center justify-between">
       <div className="flex items-center space-x-4">
-        <div className="relative w-20 h-20">
-          <CircularProgressbar
-            value={progress}
-            strokeWidth={10} 
-            styles={buildStyles({
-              pathColor: "#179DD7",
-              trailColor: "#444",
-              strokeLinecap: "round",
-              pathTransitionDuration: 0.5,
-            })}
-          />
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="pb-1 text-4xl font-extrabold text-[#179DD7]">
-              {currentLevel}
-            </span>
-          </div>
-        </div>
+        <CircularProgressBar
+          progress={progress}
+          level={currentLevel}
+        />
         <div>
           <h2 className="text-xl font-bold mb-1 flex">
             You are on
