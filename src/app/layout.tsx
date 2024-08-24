@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import MiniKitProvider from "@/lib/providers/minikit-provider";
+import Main from "@/components/Main";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +18,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="notranslate dark">
       <MiniKitProvider>
-        <body className={inter.className}>{children}</body>
+        <body
+          className={cn(`h-svh bg-background antialiased`)}
+          suppressHydrationWarning
+        >
+          <div className="sticky top-0 z-50 flex w-full items-center justify-between bg-muted p-2 pl-4 h-14">
+            <p className={"text-lg font-semibold"}>Argiefy Club</p>
+          </div>
+
+          <Main>{children}</Main>
+        </body>
       </MiniKitProvider>
     </html>
   );
