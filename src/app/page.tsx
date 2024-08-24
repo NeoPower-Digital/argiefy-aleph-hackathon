@@ -1,11 +1,5 @@
-'use client';
-
+import ArgiefyClub from "@/components/ArgiefyClub";
 
 export default function Home() {
-
-  return (
-    <main className="">
-      <h1>argiefy-club</h1>
-    </main>
-  );
+  return <ArgiefyClub />;
 }
