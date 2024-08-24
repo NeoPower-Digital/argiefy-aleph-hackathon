@@ -24,10 +24,9 @@ export default function Home() {
     }
 
     MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (response) => {
-      //   if (payload.status === "error") {
-      //   return console.log("Error payload", payload);
-      // }
-
+      if (response.status === "error") {
+        return console.log("Error payload", payload);
+      }
 
       // Verify the proof in the backend 
       const verifyResponse = await fetch("https://1eed-186-125-134-194.ngrok-free.app/api/verify", {

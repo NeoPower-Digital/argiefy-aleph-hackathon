@@ -1,5 +1,5 @@
-import { verifyCloudProof, ISuccessResult } from '@worldcoin/minikit-js';
-import { NextRequest, NextResponse } from 'next/server';
+import { verifyCloudProof, ISuccessResult } from "@worldcoin/minikit-js";
+import { NextRequest, NextResponse } from "next/server";
 
 interface IRequestPayload {
   payload: ISuccessResult;
