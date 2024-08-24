@@ -6,15 +6,15 @@ import ProfileHeader from "./ProfileHeader";
 
 const ArgiefyClub = () => {
   return (
-    
-      <div classname="space-y-4">
-      <ProfileHeader/>
+    <>
+    <div className="space-y-4">
+      <ProfileHeader />
       <ButtonClaim />
       <div>Claim rewards section</div>
 
       <Benefits />
     </div>
-
+    </>
   );
 };
 
