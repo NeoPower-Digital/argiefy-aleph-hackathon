@@ -23,7 +23,7 @@ export default function Component() {
   const progress = ((currentPoints - minPointsCurrentLevel) / (minPointsNextLevel - minPointsCurrentLevel)) * 100
 
   return (
-    <div className="w-full max-w-md p-4 bg-gray-900 text-white rounded-lg flex items-center justify-between">
+    <div className="w-full max-w-md p-4  text-white rounded-lg flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <div className="relative w-16 h-16">
           <svg className="w-full h-full" viewBox="0 0 36 36">
