@@ -3,7 +3,6 @@
 import * as React from "react";
 
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { Button } from "./button";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +21,7 @@ import {
   DrawerTrigger,
 } from "./drawer";
 import { useMediaQuery } from "@/lib/helpers/useMediaQuery";
+import { Button } from "./Button";
 
 interface ResponsiveDialogProps {
   title: string;

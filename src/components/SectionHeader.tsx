@@ -1,6 +1,6 @@
 import React, { FC, HTMLAttributes, ReactElement } from "react";
 import { Separator } from "./ui/separator";
-import { Button } from "./ui/button";
+import { Button } from "./ui/Button";
 
 export interface SectionHeaderProps {
   title: ReactElement;
@@ -47,7 +47,7 @@ const SectionHeader: FC<SectionHeaderProps> = ({
 const HomeSectionHeader = React.forwardRef<
   HTMLDivElement,
   HTMLAttributes<HTMLDivElement> &
-    Omit<SectionHeaderProps, "title"> & { title: string }
+  Omit<SectionHeaderProps, "title"> & { title: string }
 >(({ title, titleIcon, ...props }) => (
   <SectionHeader
     title={<p className="text-md text-muted">{title}</p>}

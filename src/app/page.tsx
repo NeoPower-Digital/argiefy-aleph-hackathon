@@ -28,7 +28,6 @@ const loginDeviceVerifyPayload: VerifyCommandInput = {
 };
 
 export default function Home() {
-  console.log('MiniKit installed: ', MiniKit.isInstalled());
   const [state, setState] = useState({});
 
   const { getUser, validateUserWorldcoin } = useSupabase();
@@ -53,6 +52,7 @@ export default function Home() {
       ResponseEvent.MiniAppVerifyAction,
       handleMiniKitSubscription
     );
+
     return () => {
       MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
     };

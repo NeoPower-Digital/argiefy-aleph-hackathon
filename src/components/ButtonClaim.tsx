@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Matecito from "../../public/matecito.svg";
 import FingerPrint from "../../public/fingerPrint.svg";
+import { Button } from "./ui/Button";
 
 export default function Component() {
   const [isVerified, setIsVerified] = useState(false);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { CreditCard } from "lucide-react";
 import CircularProgressBar from "./CircularProgressBar";
+import { Button } from "./ui/Button";
 
 
 export default function Component() {
