@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import useSupabase from '@/lib/hooks/useSupabase';
 import {
   ISuccessResult,
   MiniAppVerifyActionPayload,
@@ -14,7 +15,12 @@ import { useEffect, useState } from 'react';
 export default function Home() {
   console.log('MiniKit installed: ', MiniKit.isInstalled());
   const [state, setState] = useState({});
+  const { getUsers } = useSupabase();
+
+
   useEffect(() => {
+    test();
+
     if (!MiniKit.isInstalled()) {
       return;
     }
