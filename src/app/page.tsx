@@ -38,7 +38,6 @@ export default function Home() {
         },
         body: JSON.stringify({
           payload: response,
-          action: response.action
         })
 
       });

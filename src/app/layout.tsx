@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import MiniKitProvider from "@/lib/providers/minikit-provider";
+import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,11 +16,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const MinikitProvider = dynamic(() => import("@/lib/providers/minikit-provider"), { ssr: false });
+
   return (
     <html lang="en">
-      <MiniKitProvider>
+      <MinikitProvider>
         <body className={inter.className}>{children}</body>
-      </MiniKitProvider>
+      </MinikitProvider>
     </html>
   );
 }
