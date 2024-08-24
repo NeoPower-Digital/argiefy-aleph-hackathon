@@ -21,9 +21,11 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <MinikitProvider>
-        <body className={inter.className}>{children}</body>
-      </MinikitProvider>
+      <body className={inter.className}>
+        <MinikitProvider>
+          {children}
+        </MinikitProvider>
+      </body>
     </html>
   );
 }

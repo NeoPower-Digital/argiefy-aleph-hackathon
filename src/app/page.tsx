@@ -28,7 +28,6 @@ export default function Home() {
       //   return console.log("Error payload", payload);
       // }
 
-      console.log(response)
 
       // Verify the proof in the backend 
       const verifyResponse = await fetch("https://1eed-186-125-134-194.ngrok-free.app/api/verify", {
@@ -60,7 +59,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ payload: 'test' }),
+      body: JSON.stringify({ payload: payload }),
     });
     console.log(response)
   }
