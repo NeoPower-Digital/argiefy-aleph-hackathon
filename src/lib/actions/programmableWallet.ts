@@ -1,6 +1,9 @@
 "use server";
 
-const API_KEY = "";
+import { v4 as uuidv4 } from "uuid";
+
+const API_KEY =
+  "TEST_API_KEY:b68a4a73befd1d342ed61c65e9d8f5c1:372a47fdfb1e5e91e7f0ed54bf6b32a8";
 
 const options = (userId: string) => ({
   method: "POST",
@@ -22,13 +25,11 @@ const getSessionToken = async (userId: string) => {
   return await returnAwaitedFetch(url, options(userId));
 };
 
-const initializeUserAccount = async (
-  userToken: string,
-  idempotencyKey: string
-) => {
+const initializeUserAccount = async (userToken: string) => {
   const url = "https://api.circle.com/v1/w3s/user/initialize";
 
-  const blockchains = [""];
+  const blockchains = ["ETH-SEPOLIA"];
+  const idempotencyKey = uuidv4();
 
   const options = {
     method: "POST",
@@ -73,5 +74,21 @@ const getWalletBalance = async (walletId: string) => {
 };
 
 const returnAwaitedFetch = async (url: string, options: RequestInit) => {
-  return await returnAwaitedFetch(url, options);
+  try {
+    const response = await fetch(url, options);
+    const jsonResponse = await response.json();
+
+    console.log(jsonResponse);
+    return jsonResponse;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export {
+  createNewUser,
+  getSessionToken,
+  initializeUserAccount,
+  checkWalletStatus,
+  getWalletBalance,
 };

@@ -25,7 +25,7 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           <div className="sticky top-0 z-50 flex w-full items-center justify-between bg-muted p-2 pl-4 h-14">
-            <p className={"text-lg font-semibold"}>Argiefy Club</p>
+            <p className={"text-lg font-semibold"}>Argiefy</p>
           </div>
 
           <Main>{children}</Main>
