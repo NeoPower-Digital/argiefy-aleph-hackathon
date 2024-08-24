@@ -18,25 +18,58 @@ export default function Home() {
 
   console.log(payload);
 
+  useEffect(() => {
+    if (!MiniKit.isInstalled()) {
+      return;
+    }
 
-  const onSuccess = () => { }
-  const handleVerify = () => { }
+    MiniKit.subscribe(ResponseEvent.MiniAppVerifyAction, async (response) => {
+      //   if (payload.status === "error") {
+      //   return console.log("Error payload", payload);
+      // }
+
+      console.log(response)
+
+      // Verify the proof in the backend 
+      const verifyResponse = await fetch("https://1eed-186-125-134-194.ngrok-free.app/api/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          payload: response,
+          action: response.action
+        })
+
+      });
+      console.log(verifyResponse);
+    });
+
+    return () => {
+      // Clean up on unmount
+      MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
+    };
+  }, []);
+
+  // const onSuccess = () => { }
+  // const handleVerify = () => { }
 
   const postData = async () => {
     const response = await fetch('https://1eed-186-125-134-194.ngrok-free.app/api/verify', {
       method: 'POST',
+      // mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ payload: 'test' }),
-    })
+    });
     console.log(response)
   }
 
   return (
     <main className="">
       <h1>argiefy-club</h1>
-      <IDKitWidget
+      {/* <IDKitWidget
         app_id="app_39c0671f96ddf3ab0fd057fba96180ec" // obtained from the Developer Portal
         action="profile-human-validation" // obtained from the Developer Portal
         onSuccess={onSuccess} // callback when the modal is closed
@@ -47,7 +80,7 @@ export default function Home() {
           // This is the button that will open the IDKit modal
           <button onClick={open}>Verify with World ID</button>
         }
-      </IDKitWidget>
+      </IDKitWidget> */}
 
       <Button className="" onClick={postData}>hi</Button>
     </main>
