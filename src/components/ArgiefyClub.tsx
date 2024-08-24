@@ -1,14 +1,14 @@
 "use client";
 
 import Benefits from "./Benefits";
-import ButtonClaimMatecito from "./ButtonClaimMatecito";
+import ButtonClaim from "./ButtonClaim";
 import ProfileHeader from "./ProfileHeader";
 
 const ArgiefyClub = () => {
   return (
     <>
       <ProfileHeader/>
-      <ButtonClaimMatecito />
+      <ButtonClaim />
       <div>Claim rewards section</div>
 
       <Benefits />
