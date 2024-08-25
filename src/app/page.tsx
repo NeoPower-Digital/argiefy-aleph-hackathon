@@ -2,12 +2,17 @@
 
 import {
   handleVerifyIdKit,
-  handleMiniKitSubscription,
+  loginDeviceVerifyPayload,
+  worldcoinAppId,
+  IncognitoActions,
+  activeUserId,
+  verifyWithServer,
 } from "@/lib/utils/worldcoin";
 import useSupabase from "@/lib/hooks/useSupabase";
 import { IDKitWidget } from "@worldcoin/idkit";
 import {
   ISuccessResult,
+  MiniAppVerifyActionPayload,
   MiniKit,
   ResponseEvent,
   VerificationLevel,
@@ -28,6 +33,15 @@ const loginDeviceVerifyPayload: VerifyCommandInput = {
 };
 
 export default function Home() {
+  console.log('MiniKit installed: ', MiniKit.isInstalled());
+  const [state, setState] = useState<{
+    user: any;
+    worldcoin: any;
+    message?: string;
+  }>({
+    user: null,
+    worldcoin: null,
+  });
   const [payload, setPayload] = useState({});
   const [isMiniKit, setMiniKit] = useState<boolean>(false)
   const [isUserVerified, setUserVerified] = useState<boolean>(false);
@@ -44,6 +58,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    getCurrentUser();
     userIsVerified();
 
     if (!MiniKit.isInstalled()) {
@@ -60,17 +75,50 @@ export default function Home() {
     return () => {
       MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
     };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { getUser } = useSupabase();
+
+  const getCurrentUser = async () => {
+    const currentUser = await getUser(activeUserId);
+    setState({ ...state, user: currentUser?.length ? currentUser[0] : null });
+  };
+
+  const handleMiniKitSubscription = async (
+    response: MiniAppVerifyActionPayload
+  ) => {
+    if (response.status === 'error') {
+      throw new Error(`Verification failed: ${JSON.stringify(response)}`);
+    }
+
+    // Verify the proof in the backend
+    const verifyResponse = await verifyWithServer(
+      response,
+      IncognitoActions.ARGIEFY_CLUB_LOGIN
+    );
+
+    // TODO: Handle Success!
+    const verifyResponseJson = await verifyResponse.json();
+    if (verifyResponseJson.status === 200) {
+      setState({
+        ...state,
+        user: verifyResponseJson.user,
+        message: 'Verified!',
+      });
+    }
+  };
+
   const verifyWithMiniKit = () => {
     const payload = MiniKit.commands.verify(loginDeviceVerifyPayload);
+    setState({ ...state, worldcoin: payload });
     setPayload(payload);
     return payload;
   };
 
   const onSuccessIdKit = (payload: ISuccessResult) => {
+    const user = getCurrentUser();
+    setState({ ...state, user, worldcoin: payload });
     setPayload(payload);
   };
 
