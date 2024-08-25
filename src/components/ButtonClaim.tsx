@@ -36,25 +36,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
   {
     if (!isMiniKit)
       return isVerified ? (
-        <ResponsiveDialog
-          title="Claim Daily Matecito"
-          closeButtonLabel="Close"
-          trigger={
-            <Button className="w-full max-w-md p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors">
-              <div className="flex items-center justify-center space-x-2">
-                <Image
-                  width={20}
-                  height={20}
-                  src={Matecito}
-                  alt="Matecito Icon"
-                />
-                <div className="text-lg font-medium">Claim Daily Matecito</div>
-              </div>
-            </Button>
-          }
-        >
-          Here&rsquo;s your Matecito!
-        </ResponsiveDialog>
+        <MatecitoDialog />
       ) : (
         <IDKitWidget
           app_id={worldcoinAppId} // obtained from the Developer Portal
@@ -86,28 +68,44 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
   }
 
   return (
-    <Button
-      className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors"
-      onClick={handleClick}
-    >
+    <>
       {isVerified ? (
+        <MatecitoDialog />
+      ) : (
+        <Button
+          className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors"
+          onClick={handleClick}
+        >
+          <div className="flex items-center justify-center space-x-2">
+            <Image
+              width={20}
+              height={20}
+              src={FingerPrint}
+              alt="Fingerprint Icon"
+            />
+            <div className="text-lg font-medium">Verify Identity</div>
+          </div>
+        </Button>
+      )}
+    </>
+  );
+};
+
+const MatecitoDialog = () => (
+  <ResponsiveDialog
+    title="Claim Daily Matecito"
+    closeButtonLabel="Close"
+    trigger={
+      <Button className="w-full max-w-md p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors">
         <div className="flex items-center justify-center space-x-2">
           <Image width={20} height={20} src={Matecito} alt="Matecito Icon" />
           <div className="text-lg font-medium">Claim Daily Matecito</div>
         </div>
-      ) : (
-        <div className="flex items-center justify-center space-x-2">
-          <Image
-            width={20}
-            height={20}
-            src={FingerPrint}
-            alt="Fingerprint Icon"
-          />
-          <div className="text-lg font-medium">Verify Identity</div>
-        </div>
-      )}
-    </Button>
-  );
-};
+      </Button>
+    }
+  >
+    Here&rsquo;s your Matecito!
+  </ResponsiveDialog>
+);
 
 export default ButtonClaim;
