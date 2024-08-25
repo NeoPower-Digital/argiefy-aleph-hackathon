@@ -3,47 +3,36 @@
 import { Button } from '@/components/ui/Button';
 import {
   handleVerifyIdKit,
-  handleMiniKitSubscription,
+  loginDeviceVerifyPayload,
+  worldcoinAppId,
+  IncognitoActions,
+  activeUserId,
+  verifyWithServer,
 } from '@/lib/utils/worldcoin';
 import useSupabase from '@/lib/hooks/useSupabase';
 import { IDKitWidget } from '@worldcoin/idkit';
 import {
   ISuccessResult,
+  MiniAppVerifyActionPayload,
   MiniKit,
   ResponseEvent,
   VerificationLevel,
-  VerifyCommandInput,
 } from '@worldcoin/minikit-js';
 import { useEffect, useState } from 'react';
 
-const worldcoinAppId = process.env.NEXT_PUBLIC_APP_ID as `app_${string}`;
-const IncognitoActions = {
-  ARGIEFY_CLUB_LOGIN:
-    process.env.NEXT_PUBLIC_WORLDCOIN_LOGIN_ACTION_NAME || 'argiefy-club-login',
-};
-const loginDeviceVerifyPayload: VerifyCommandInput = {
-  action: IncognitoActions.ARGIEFY_CLUB_LOGIN, // This is your action ID from the Developer Portal
-  verification_level: VerificationLevel.Device, // Orb | Device
-};
-
 export default function Home() {
   console.log('MiniKit installed: ', MiniKit.isInstalled());
-  const [state, setState] = useState({});
-
-  const { getUser, validateUserWorldcoin } = useSupabase();
-
-  const test = async () => {
-    const data = await getUser('221b6a90-e61f-4ffc-b8fd-93ac192eb6bc');
-    const data2 = await validateUserWorldcoin(
-      '221b6a90-e61f-4ffc-b8fd-93ac192eb6bc'
-    );
-
-    console.log(data);
-    console.log(data2);
-  };
+  const [state, setState] = useState<{
+    user: any;
+    worldcoin: any;
+    message?: string;
+  }>({
+    user: null,
+    worldcoin: null,
+  });
 
   useEffect(() => {
-    test();
+    getCurrentUser();
 
     if (!MiniKit.isInstalled()) {
       return;
@@ -55,16 +44,49 @@ export default function Home() {
     return () => {
       MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const { getUser } = useSupabase();
+
+  const getCurrentUser = async () => {
+    const currentUser = await getUser(activeUserId);
+    setState({ ...state, user: currentUser?.length ? currentUser[0] : null });
+  };
+
+  const handleMiniKitSubscription = async (
+    response: MiniAppVerifyActionPayload
+  ) => {
+    if (response.status === 'error') {
+      throw new Error(`Verification failed: ${JSON.stringify(response)}`);
+    }
+
+    // Verify the proof in the backend
+    const verifyResponse = await verifyWithServer(
+      response,
+      IncognitoActions.ARGIEFY_CLUB_LOGIN
+    );
+
+    // TODO: Handle Success!
+    const verifyResponseJson = await verifyResponse.json();
+    if (verifyResponseJson.status === 200) {
+      setState({
+        ...state,
+        user: verifyResponseJson.user,
+        message: 'Verified!',
+      });
+    }
+  };
 
   const verifyWithMiniKit = () => {
     const payload = MiniKit.commands.verify(loginDeviceVerifyPayload);
-    setState(payload);
+    setState({ ...state, worldcoin: payload });
     return payload;
   };
 
   const onSuccessIdKit = (payload: ISuccessResult) => {
-    setState(payload);
+    const user = getCurrentUser();
+    setState({ ...state, user, worldcoin: payload });
   };
 
   return (
@@ -77,20 +99,18 @@ export default function Home() {
 
       <p>{JSON.stringify(state)}</p>
 
-      <Button className='' onClick={verifyWithMiniKit}>
-        <IDKitWidget
-          app_id={worldcoinAppId} // obtained from the Developer Portal
-          action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
-          onSuccess={onSuccessIdKit} // callback when the modal is closed
-          handleVerify={handleVerifyIdKit} // callback when the proof is received
-          verification_level={VerificationLevel.Orb}
-        >
-          {({ open }) => (
-            // This is the button that will open the IDKit modal
-            <button onClick={open}>Verify with IDKit</button>
-          )}
-        </IDKitWidget>
-      </Button>
+      <IDKitWidget
+        app_id={worldcoinAppId} // obtained from the Developer Portal
+        action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
+        onSuccess={onSuccessIdKit} // callback when the modal is closed
+        handleVerify={handleVerifyIdKit} // callback when the proof is received
+        verification_level={VerificationLevel.Orb}
+      >
+        {({ open }) => (
+          // This is the button that will open the IDKit modal
+          <button onClick={open}>Verify with IDKit</button>
+        )}
+      </IDKitWidget>
     </main>
   );
 }
