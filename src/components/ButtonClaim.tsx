@@ -38,7 +38,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
     return <MatecitoDialog />;
   }
 
-  if (true) {
+  if (isMiniKit) {
     return (
       <Button
         className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors"
@@ -89,7 +89,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
 
 const MatecitoDialog = () => (
   <ResponsiveDialog
-    title="Claim Daily Matecito"
+    title=""
     closeButtonLabel="Close"
     trigger={
       <Button className="w-full max-w-md p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors">
@@ -100,7 +100,10 @@ const MatecitoDialog = () => (
       </Button>
     }
   >
-    Here&rsquo;s your Matecito!
+    <div className="flex flex-col justify-center items-center gap-2">
+      <Image width={128} height={128} src={Matecito} alt="Matecito Icon" />
+      Here&rsquo;s your Matecito!
+    </div>
   </ResponsiveDialog>
 );
 
