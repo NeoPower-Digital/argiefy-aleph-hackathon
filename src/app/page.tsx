@@ -49,7 +49,7 @@ export default function Home() {
       MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [MiniKit, MiniKit.isInstalled()]);
 
   const handleMiniKitSubscription = async (
     response: MiniAppVerifyActionPayload

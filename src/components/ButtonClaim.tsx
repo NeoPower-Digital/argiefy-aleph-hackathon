@@ -12,6 +12,7 @@ import {
 } from "@worldcoin/idkit";
 import { handleVerifyIdKit } from "@/lib/utils/worldcoin";
 import ResponsiveDialog from "./ui/ResponsiveDialog";
+import { MiniKit } from "@worldcoin/minikit-js";
 
 interface ButtonClaimProps {
   isVerified: boolean;
@@ -37,7 +38,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
     return <MatecitoDialog />;
   }
 
-  if (isMiniKit) {
+  if (true) {
     return (
       <Button
         className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors"
