@@ -78,20 +78,20 @@ export default function Home() {
 
       <p>{JSON.stringify(state)}</p>
 
-      <Button className='' onClick={verifyWithMiniKit}>
-        <IDKitWidget
-          app_id={worldcoinAppId} // obtained from the Developer Portal
-          action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
-          onSuccess={onSuccessIdKit} // callback when the modal is closed
-          handleVerify={handleVerifyIdKit} // callback when the proof is received
-          verification_level={VerificationLevel.Orb}
-        >
-          {({ open }) => (
-            // This is the button that will open the IDKit modal
-            <button onClick={open}>Verify with IDKit</button>
-          )}
-        </IDKitWidget>
-      </Button>
+      {/* <Button className='' onClick={verifyWithMiniKit}> */}
+      <IDKitWidget
+        app_id={worldcoinAppId} // obtained from the Developer Portal
+        action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
+        onSuccess={onSuccessIdKit} // callback when the modal is closed
+        handleVerify={handleVerifyIdKit} // callback when the proof is received
+        verification_level={VerificationLevel.Orb}
+      >
+        {({ open }) => (
+          // This is the button that will open the IDKit modal
+          <button onClick={open}>Verify with IDKit</button>
+        )}
+      </IDKitWidget>
+      {/* </Button> */}
       <ArgiefyClub />
     </main>
   );
