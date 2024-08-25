@@ -53,7 +53,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
             </Button>
           }
         >
-          Here's your Matecito!
+          Here&rsquo;s your Matecito!
         </ResponsiveDialog>
       ) : (
         <IDKitWidget
