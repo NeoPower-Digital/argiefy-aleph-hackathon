@@ -28,26 +28,30 @@ const loginDeviceVerifyPayload: VerifyCommandInput = {
 };
 
 export default function Home() {
-  const [state, setState] = useState({});
+  const [payload, setPayload] = useState({});
+  const [isMiniKit, setMiniKit] = useState<boolean>(false)
+  const [isUserVerified, setUserVerified] = useState<boolean>(false);
 
-  const { getUser, validateUserWorldcoin } = useSupabase();
+  const { getUser } = useSupabase();
 
-  const test = async () => {
-    const data = await getUser("221b6a90-e61f-4ffc-b8fd-93ac192eb6bc");
-    const data2 = await validateUserWorldcoin(
-      "221b6a90-e61f-4ffc-b8fd-93ac192eb6bc"
-    );
+  const userIsVerified = async () => {
+    const user = await getUser("221b6a90-e61f-4ffc-b8fd-93ac192eb6bc");
 
-    console.log(data);
-    console.log(data2);
+    if (!user) return;
+
+    const isVerified = user[0].world_id_verified
+    setUserVerified(isVerified)
   };
 
   useEffect(() => {
-    test();
+    userIsVerified();
 
     if (!MiniKit.isInstalled()) {
-      return;
-    }
+      return
+    };
+
+    setMiniKit(true)
+
     MiniKit.subscribe(
       ResponseEvent.MiniAppVerifyAction,
       handleMiniKitSubscription
@@ -56,43 +60,45 @@ export default function Home() {
     return () => {
       MiniKit.unsubscribe(ResponseEvent.MiniAppVerifyAction);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const verifyWithMiniKit = () => {
     const payload = MiniKit.commands.verify(loginDeviceVerifyPayload);
-    setState(payload);
+    setPayload(payload);
     return payload;
   };
 
   const onSuccessIdKit = (payload: ISuccessResult) => {
-    setState(payload);
+    setPayload(payload);
   };
 
   return (
-    <main className="">
+    <main className="max-w-2xl mx-auto">
       <h1>Welcome to Argiefy Club!</h1>
 
-      <Button className="" onClick={verifyWithMiniKit}>
+      {/* <Button className="" onClick={verifyWithMiniKit}>
         Verify with MiniKit
-      </Button>
+      </Button> */}
 
-      <p>{JSON.stringify(state)}</p>
+      {/* <p>{JSON.stringify(payload)}</p> */}
 
-      {/* <Button className='' onClick={verifyWithMiniKit}> */}
-      <IDKitWidget
-        app_id={worldcoinAppId} // obtained from the Developer Portal
-        action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
-        onSuccess={onSuccessIdKit} // callback when the modal is closed
-        handleVerify={handleVerifyIdKit} // callback when the proof is received
-        verification_level={VerificationLevel.Orb}
-      >
-        {({ open }) => (
-          // This is the button that will open the IDKit modal
-          <Button onClick={open}>Verify with IDKit</Button>
-        )}
-      </IDKitWidget>
-      {/* </Button> */}
-      <ArgiefyClub />
+      {/* <Button className='' onClick={verifyWithMiniKit} asChild>
+        <IDKitWidget
+          app_id={worldcoinAppId} // obtained from the Developer Portal
+          action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
+          onSuccess={onSuccessIdKit} // callback when the modal is closed
+          handleVerify={handleVerifyIdKit} // callback when the proof is received
+          verification_level={VerificationLevel.Orb}
+        >
+          {({ open }) => (
+            // This is the button that will open the IDKit modal
+            <Button onClick={open}>Verify with IDKit</Button>
+          )}
+        </IDKitWidget>
+      </Button> */}
+      <ArgiefyClub isVerified={isUserVerified} handleClick={verifyWithMiniKit} isMiniKit={isMiniKit} onSuccessIdKit={onSuccessIdKit} />
     </main>
   );
 }
