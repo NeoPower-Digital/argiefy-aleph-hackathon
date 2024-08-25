@@ -25,18 +25,18 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="notranslate dark">
-      <MiniKitProvider>
-        <body
-          className={cn(`h-svh bg-background antialiased`)}
-          suppressHydrationWarning
-        >
+      <body
+        className={cn(`h-svh bg-background antialiased`)}
+        suppressHydrationWarning
+      >
+        <MiniKitProvider>
           <div className="sticky top-0 z-50 flex w-full items-center justify-between bg-muted p-2 pl-4 h-14">
             <p className={"text-lg font-semibold"}>Argiefy Club</p>
           </div>
 
           <Main>{children}</Main>
-        </body>
-      </MiniKitProvider>
+        </MiniKitProvider>
+      </body>
     </html>
   );
 }
