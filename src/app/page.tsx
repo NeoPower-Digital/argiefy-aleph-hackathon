@@ -17,23 +17,22 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   console.log("MiniKit installed: ", MiniKit.isInstalled());
-  const [payload, setPayload] = useState({});
   const [isMiniKit, setMiniKit] = useState<boolean>(false);
-  const [isUserVerified, setUserVerified] = useState<boolean>(false);
+  const [isUserVerified, setIsUserVerified] = useState<boolean>(false);
 
   const { getUser } = useSupabase();
 
-  const userIsVerified = async () => {
+  const getUserVerification = async () => {
     const user = await getUser("221b6a90-e61f-4ffc-b8fd-93ac192eb6bc");
 
     if (!user) return;
 
     const isVerified = user[0].world_id_verified;
-    setUserVerified(isVerified);
+    setIsUserVerified(isVerified);
   };
 
   useEffect(() => {
-    userIsVerified();
+    getUserVerification();
 
     if (!MiniKit.isInstalled()) {
       return;
@@ -68,18 +67,16 @@ export default function Home() {
     // TODO: Handle Success!
     const verifyResponseJson = await verifyResponse.json();
     if (verifyResponseJson.status === 200) {
-      await userIsVerified();
+      await getUserVerification();
     }
   };
 
   const verifyWithMiniKit = () => {
-    const payload = MiniKit.commands.verify(loginDeviceVerifyPayload);
-    setPayload(payload);
-    return payload;
+    MiniKit.commands.verify(loginDeviceVerifyPayload);
   };
 
   const onSuccessIdKit = (payload: ISuccessResult) => {
-    setPayload(payload);
+    getUserVerification();
   };
 
   return (

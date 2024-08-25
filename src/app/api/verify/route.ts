@@ -1,7 +1,7 @@
-import { createClient } from '@/lib/utils/supabase/server';
-import { activeUserId } from '@/lib/utils/worldcoin';
-import { verifyCloudProof, ISuccessResult } from '@worldcoin/minikit-js';
-import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from "@/lib/utils/supabase/server";
+import { activeUserId } from "@/lib/utils/worldcoin";
+import { verifyCloudProof, ISuccessResult } from "@worldcoin/minikit-js";
+import { NextRequest, NextResponse } from "next/server";
 
 interface IRequestPayload {
   payload: ISuccessResult;
@@ -10,17 +10,24 @@ interface IRequestPayload {
 }
 const updateUser = async (userId: string) => {
   const supabase = createClient();
-  const { data: updatedUser } = await supabase
-    .from('users_data')
+  const { data: updatedUser, error } = await supabase
+    .from("users_data")
     .upsert({ user_id: userId, world_id_verified: true })
     .select();
+
+  console.log({ updateUser, error });
   return updatedUser;
 };
 
 export async function POST(req: NextRequest) {
   const { payload, action, signal } = (await req.json()) as IRequestPayload;
+
+  console.log({ payload, action, signal });
+
   const app_id = process.env.NEXT_PUBLIC_APP_ID as `app_${string}`;
   const verifyRes = await verifyCloudProof(payload, app_id, action, signal);
+
+  console.log({ verifyRes });
 
   if (verifyRes.success) {
     // This is where you should perform backend actions if the verification succeeds

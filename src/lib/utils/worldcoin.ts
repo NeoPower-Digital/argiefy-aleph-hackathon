@@ -28,7 +28,7 @@ const handleVerifyIdKit = async (proof: ISuccessResult) => {
 };
 
 const verifyWithServer = async (proof: ISuccessResult, action: string) => {
-  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}${process.env.NEXT_PUBLIC_SERVER_BASE_PATH}${process.env.NEXT_PUBLIC_WORLDCOIN_VERIFICATION_PATH}`;
+  const url = `${process.env.NEXT_PUBLIC_SERVER_BASE_PATH}${process.env.NEXT_PUBLIC_WORLDCOIN_VERIFICATION_PATH}`;
   return await fetch(url, {
     method: "POST",
     headers: {

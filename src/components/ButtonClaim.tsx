@@ -38,7 +38,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
       return isVerified ? (
         <ResponsiveDialog
           title="Claim Daily Matecito"
-          closeButtonLabel=""
+          closeButtonLabel="Close"
           trigger={
             <Button className="w-full max-w-md p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors">
               <div className="flex items-center justify-center space-x-2">
@@ -61,7 +61,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
           action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
           onSuccess={onSuccessIdKit} // callback when the modal is closed
           handleVerify={handleVerifyIdKit} // callback when the proof is received
-          verification_level={VerificationLevel.Orb}
+          verification_level={VerificationLevel.Device}
         >
           {({ open }) => (
             <>
