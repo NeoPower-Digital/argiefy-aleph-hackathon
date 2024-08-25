@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import ArgiefyClub from '@/components/ArgiefyClub';
-import useSupabase from '@/lib/hooks/useSupabase';
+import ArgiefyClub from "@/components/ArgiefyClub";
+import useSupabase from "@/lib/hooks/useSupabase";
 import {
   IncognitoActions,
   loginDeviceVerifyPayload,
   verifyWithServer,
-} from '@/lib/utils/worldcoin';
+} from "@/lib/utils/worldcoin";
 import {
   ISuccessResult,
   MiniAppVerifyActionPayload,
   MiniKit,
   ResponseEvent,
-} from '@worldcoin/minikit-js';
-import { useEffect, useState } from 'react';
+} from "@worldcoin/minikit-js";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  console.log('MiniKit installed: ', MiniKit.isInstalled());
+  console.log("MiniKit installed: ", MiniKit.isInstalled());
   const [payload, setPayload] = useState({});
   const [isMiniKit, setMiniKit] = useState<boolean>(false);
   const [isUserVerified, setUserVerified] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export default function Home() {
   const { getUser } = useSupabase();
 
   const userIsVerified = async () => {
-    const user = await getUser('221b6a90-e61f-4ffc-b8fd-93ac192eb6bc');
+    const user = await getUser("221b6a90-e61f-4ffc-b8fd-93ac192eb6bc");
 
     if (!user) return;
 
@@ -55,7 +55,7 @@ export default function Home() {
   const handleMiniKitSubscription = async (
     response: MiniAppVerifyActionPayload
   ) => {
-    if (response.status === 'error') {
+    if (response.status === "error") {
       throw new Error(`Verification failed: ${JSON.stringify(response)}`);
     }
 
@@ -83,8 +83,7 @@ export default function Home() {
   };
 
   return (
-    <main className='max-w-2xl mx-auto'>
-      <h1>Welcome to Argiefy Club!</h1>
+    <main className="max-w-2xl mx-auto">
       <ArgiefyClub
         isVerified={isUserVerified}
         handleClick={verifyWithMiniKit}

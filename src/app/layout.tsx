@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="notranslate dark">
       <body
-        className={cn(`h-svh bg-background antialiased`)}
+        className={cn(`h-svh bg-background antialiased`, inter.className)}
         suppressHydrationWarning
       >
         <MiniKitProvider>
