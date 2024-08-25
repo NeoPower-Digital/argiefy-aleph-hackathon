@@ -5,8 +5,13 @@ import Image from "next/image";
 import Matecito from "../../public/matecito.svg";
 import FingerPrint from "../../public/fingerPrint.svg";
 import { Button } from "./ui/button";
-import { IDKitWidget, ISuccessResult, VerificationLevel } from "@worldcoin/idkit";
+import {
+  IDKitWidget,
+  ISuccessResult,
+  VerificationLevel,
+} from "@worldcoin/idkit";
 import { handleVerifyIdKit } from "@/lib/utils/worldcoin";
+import ResponsiveDialog from "./ui/ResponsiveDialog";
 
 interface ButtonClaimProps {
   isVerified: boolean;
@@ -22,12 +27,35 @@ const IncognitoActions = {
     process.env.NEXT_PUBLIC_WORLDCOIN_LOGIN_ACTION_NAME || "argiefy-club-login",
 };
 
-const ButtonClaim: FC<ButtonClaimProps> = ({ isVerified, handleClick, isMiniKit, onSuccessIdKit }) => {
-
-
+const ButtonClaim: FC<ButtonClaimProps> = ({
+  isVerified,
+  handleClick,
+  isMiniKit,
+  onSuccessIdKit,
+}) => {
   {
     if (!isMiniKit)
-      return (
+      return isVerified ? (
+        <ResponsiveDialog
+          title="Claim Daily Matecito"
+          closeButtonLabel=""
+          trigger={
+            <Button className="w-full max-w-md p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors">
+              <div className="flex items-center justify-center space-x-2">
+                <Image
+                  width={20}
+                  height={20}
+                  src={Matecito}
+                  alt="Matecito Icon"
+                />
+                <div className="text-lg font-medium">Claim Daily Matecito</div>
+              </div>
+            </Button>
+          }
+        >
+          Here's your Matecito!
+        </ResponsiveDialog>
+      ) : (
         <IDKitWidget
           app_id={worldcoinAppId} // obtained from the Developer Portal
           action={IncognitoActions.ARGIEFY_CLUB_LOGIN} // obtained from the Developer Portal
@@ -36,26 +64,25 @@ const ButtonClaim: FC<ButtonClaimProps> = ({ isVerified, handleClick, isMiniKit,
           verification_level={VerificationLevel.Orb}
         >
           {({ open }) => (
-            // This is the button that will open the IDKit modal
-            <Button className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors" onClick={open}>{isVerified ? (
-              <div className="flex items-center justify-center space-x-2">
-                <Image width={20} height={20} src={Matecito} alt="Matecito Icon" />
-                <div className="text-lg font-medium">Claim Daily Matecito</div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center space-x-2">
-                <Image
-                  width={20}
-                  height={20}
-                  src={FingerPrint}
-                  alt="Fingerprint Icon"
-                />
-                <div className="text-lg font-medium">Verify Identity</div>
-              </div>
-            )}</Button>
+            <>
+              <Button
+                className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors"
+                onClick={open}
+              >
+                <div className="flex items-center justify-center space-x-2">
+                  <Image
+                    width={20}
+                    height={20}
+                    src={FingerPrint}
+                    alt="Fingerprint Icon"
+                  />
+                  <div className="text-lg font-medium">Verify Identity</div>
+                </div>
+              </Button>
+            </>
           )}
         </IDKitWidget>
-      )
+      );
   }
 
   return (
@@ -81,6 +108,6 @@ const ButtonClaim: FC<ButtonClaimProps> = ({ isVerified, handleClick, isMiniKit,
       )}
     </Button>
   );
-}
+};
 
 export default ButtonClaim;

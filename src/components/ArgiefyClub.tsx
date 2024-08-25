@@ -13,13 +13,23 @@ interface ArgiefyClubProps {
   onSuccessIdKit: (payload: ISuccessResult) => void;
 }
 
-const ArgiefyClub: FC<ArgiefyClubProps> = ({ isVerified, handleClick, isMiniKit, onSuccessIdKit }) => {
+const ArgiefyClub: FC<ArgiefyClubProps> = ({
+  isVerified,
+  handleClick,
+  isMiniKit,
+  onSuccessIdKit,
+}) => {
   return (
     <>
       <div className="space-y-4">
         <ProfileHeader />
-        <ButtonClaim isVerified={isVerified} handleClick={handleClick} isMiniKit={isMiniKit} onSuccessIdKit={onSuccessIdKit} />
-        <div>Claim rewards section</div>
+
+        <ButtonClaim
+          isVerified={isVerified}
+          handleClick={handleClick}
+          isMiniKit={isMiniKit}
+          onSuccessIdKit={onSuccessIdKit}
+        />
 
         <Benefits />
       </div>

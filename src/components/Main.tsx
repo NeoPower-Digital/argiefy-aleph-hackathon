@@ -7,7 +7,7 @@ const Main: FC<{ children: React.ReactNode }> = ({ children }) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (
-    <main className={`${!isDesktop && "pb-[60px]"} container px-4`}>
+    <main className={`${!isDesktop && "pb-[60px]"} container px-4 max-w-md`}>
       {children}
     </main>
   );

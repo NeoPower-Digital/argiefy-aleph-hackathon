@@ -9,7 +9,7 @@ import CreateNewUser from "./ArgiefyWallet/CreateNewUser";
 import WalletContainer from "./ArgiefyWallet/WalletContainer";
 import { LoaderCircle } from "lucide-react";
 
-const userId = "TestArgiefy";
+const userId = "Testt2";
 
 const ArgiefyWallet = () => {
   const [sessionToken, setSessionToken] = useState("");
