@@ -33,7 +33,10 @@ const WalletContainer: FC<WalletContainerProps> = ({ wallet }) => {
 
       <Separator />
 
-      <BalanceAndActions address={wallet.address} />
+      <BalanceAndActions
+        tokenBalances={tokenBalances}
+        address={wallet.address}
+      />
 
       {tokenBalances && <TokensSection tokenBalances={tokenBalances} />}
     </div>
