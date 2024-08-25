@@ -14,6 +14,7 @@ const loginDeviceVerifyPayload: VerifyCommandInput = {
   action: IncognitoActions.ARGIEFY_CLUB_LOGIN, // This is your action ID from the Developer Portal
   verification_level: VerificationLevel.Device, // Orb | Device
 };
+
 const activeUserId = "221b6a90-e61f-4ffc-b8fd-93ac192eb6bc";
 
 const handleVerifyIdKit = async (proof: ISuccessResult) => {

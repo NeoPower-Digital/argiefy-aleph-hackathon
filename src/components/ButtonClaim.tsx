@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import Matecito from "../../public/matecito.svg";
 import FingerPrint from "../../public/fingerPrint.svg";
@@ -38,7 +38,7 @@ const ButtonClaim: FC<ButtonClaimProps> = ({
     return <MatecitoDialog />;
   }
 
-  if (true) {
+  if (isMiniKit) {
     return (
       <Button
         className="w-full max-w-md mt-4 p-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg flex items-center justify-center transition-colors"
