@@ -10,3 +10,19 @@ interface CircleWallet {
   userId: string; // Unique identifier for the user
   walletSetId: string; // Unique identifier for the wallet set
 }
+
+interface TokenBalance {
+  amount: string; // The amount of the token
+  token: {
+    blockchain: string; // The blockchain network
+    createDate: string; // ISO 8601 date string for token creation
+    decimals: number; // The number of decimal places for the token
+    id: string; // Unique identifier for the token
+    isNative: boolean; // Indicates if the token is a native token
+    name: string; // The name of the token
+    standard: string; // The token standard (e.g., ERC20)
+    symbol: string; // The symbol of the token
+    tokenAddress: string; // The blockchain address of the token
+  };
+  updateDate: string; // ISO 8601 date string for last update
+}

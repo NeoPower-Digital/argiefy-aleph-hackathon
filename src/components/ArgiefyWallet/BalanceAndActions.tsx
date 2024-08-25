@@ -1,7 +1,15 @@
 import { Inbox, Plane, Send } from "lucide-react";
 import { Button } from "../ui/button";
+import { FC } from "react";
 
-const BalanceAndActions = () => {
+interface BalanceAndActionsProps {
+  address: string;
+}
+
+const BalanceAndActions: FC<BalanceAndActionsProps> = ({ address }) => {
+  const handleReceive = () => {
+    navigator?.clipboard?.writeText(address);
+  };
   return (
     <div className="space-y-4 px-2">
       <div>
@@ -12,7 +20,7 @@ const BalanceAndActions = () => {
       </div>
 
       <div className="flex gap-4 w-full max-w-md">
-        <Button className="w-48 gap-2">
+        <Button className="w-48 gap-2" onClick={handleReceive}>
           <Inbox /> Receive
         </Button>
         <Button className="w-48 gap-2">

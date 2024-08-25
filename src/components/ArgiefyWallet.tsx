@@ -42,7 +42,7 @@ const ArgiefyWallet = () => {
         <CreateNewUser userId={userId} onChallengeResolved={handleUserExists} />
       )}
 
-      {wallet && <WalletContainer />}
+      {wallet && <WalletContainer wallet={wallet} />}
     </>
   );
 };
