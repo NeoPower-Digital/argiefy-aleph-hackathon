@@ -1,4 +1,4 @@
-import { createClient } from "../utils/supabase/client";
+import { createClient } from '../utils/supabase/client';
 
 const useSupabase = () => {
   const supabase = createClient();
@@ -7,23 +7,11 @@ const useSupabase = () => {
     let { data: user } = await supabase
       .from('users_data')
       .select('*')
-      .eq('user_id', userId)
+      .eq('user_id', userId);
+    return user;
+  };
 
-    return user
-  }
-
-
-  const validateUserWorldcoin = async (userId: string) => {
-    const { data: validatedUser } = await supabase
-      .from('users_data')
-      .upsert({ user_id: userId, world_id_verified: 'true' })
-
-    return validatedUser;
-  }
-
-
-  return { getUser, validateUserWorldcoin };
-
-}
+  return { getUser };
+};
 
 export default useSupabase;
