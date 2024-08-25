@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
 import {
   handleVerifyIdKit,
   handleMiniKitSubscription,
-} from '@/lib/utils/worldcoin';
-import useSupabase from '@/lib/hooks/useSupabase';
-import { IDKitWidget } from '@worldcoin/idkit';
+} from "@/lib/utils/worldcoin";
+import useSupabase from "@/lib/hooks/useSupabase";
+import { IDKitWidget } from "@worldcoin/idkit";
 import {
   ISuccessResult,
   MiniKit,
   ResponseEvent,
   VerificationLevel,
   VerifyCommandInput,
-} from '@worldcoin/minikit-js';
-import { useEffect, useState } from 'react';
-import ArgiefyClub from '@/components/ArgiefyClub';
-import { Button } from '@/components/ui/Button';
+} from "@worldcoin/minikit-js";
+import { useEffect, useState } from "react";
+import ArgiefyClub from "@/components/ArgiefyClub";
+import { Button } from "@/components/ui/button";
 
 const worldcoinAppId = process.env.NEXT_PUBLIC_APP_ID as `app_${string}`;
 const IncognitoActions = {
   ARGIEFY_CLUB_LOGIN:
-    process.env.NEXT_PUBLIC_WORLDCOIN_LOGIN_ACTION_NAME || 'argiefy-club-login',
+    process.env.NEXT_PUBLIC_WORLDCOIN_LOGIN_ACTION_NAME || "argiefy-club-login",
 };
 const loginDeviceVerifyPayload: VerifyCommandInput = {
   action: IncognitoActions.ARGIEFY_CLUB_LOGIN, // This is your action ID from the Developer Portal
@@ -33,9 +33,9 @@ export default function Home() {
   const { getUser, validateUserWorldcoin } = useSupabase();
 
   const test = async () => {
-    const data = await getUser('221b6a90-e61f-4ffc-b8fd-93ac192eb6bc');
+    const data = await getUser("221b6a90-e61f-4ffc-b8fd-93ac192eb6bc");
     const data2 = await validateUserWorldcoin(
-      '221b6a90-e61f-4ffc-b8fd-93ac192eb6bc'
+      "221b6a90-e61f-4ffc-b8fd-93ac192eb6bc"
     );
 
     console.log(data);
@@ -69,10 +69,10 @@ export default function Home() {
   };
 
   return (
-    <main className=''>
+    <main className="">
       <h1>Welcome to Argiefy Club!</h1>
 
-      <Button className='' onClick={verifyWithMiniKit}>
+      <Button className="" onClick={verifyWithMiniKit}>
         Verify with MiniKit
       </Button>
 

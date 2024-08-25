@@ -21,7 +21,7 @@ import {
   DrawerTrigger,
 } from "./drawer";
 import { useMediaQuery } from "@/lib/helpers/useMediaQuery";
-import { Button } from "./Button";
+import { Button } from "./button";
 
 interface ResponsiveDialogProps {
   title: string;

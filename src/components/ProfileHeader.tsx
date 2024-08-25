@@ -11,8 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { CreditCard } from "lucide-react";
 import CircularProgressBar from "./CircularProgressBar";
-import { Button } from "./ui/Button";
-
+import { Button } from "./ui/button";
 
 export default function Component() {
   const [open, setOpen] = useState(false);
@@ -30,10 +29,7 @@ export default function Component() {
   return (
     <div className="w-full max-w-md p-4 text-white rounded-lg flex items-center justify-between">
       <div className="flex items-center space-x-4">
-        <CircularProgressBar
-          progress={progress}
-          level={currentLevel}
-        />
+        <CircularProgressBar progress={progress} level={currentLevel} />
         <div>
           <h2 className="text-xl font-bold mb-1 flex">
             You are on

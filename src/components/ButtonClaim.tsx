@@ -4,13 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Matecito from "../../public/matecito.svg";
 import FingerPrint from "../../public/fingerPrint.svg";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 
 export default function Component() {
   const [isVerified, setIsVerified] = useState(false);
 
   const handleClick = () => {
-    // TO DO: Verificacion con World ID 
+    // TO DO: Verificacion con World ID
     setIsVerified(true);
   };
 
@@ -21,17 +21,17 @@ export default function Component() {
     >
       {isVerified ? (
         <div className="flex items-center justify-center space-x-2">
-          <Image
-            width={20}
-            height={20}
-            src={Matecito}
-            alt="Matecito Icon"
-          />
+          <Image width={20} height={20} src={Matecito} alt="Matecito Icon" />
           <div className="text-lg font-medium">Claim Daily Matecito</div>
         </div>
       ) : (
         <div className="flex items-center justify-center space-x-2">
-          <Image width={20} height={20} src={FingerPrint} alt="Fingerprint Icon" />
+          <Image
+            width={20}
+            height={20}
+            src={FingerPrint}
+            alt="Fingerprint Icon"
+          />
           <div className="text-lg font-medium">Verify Identity</div>
         </div>
       )}
