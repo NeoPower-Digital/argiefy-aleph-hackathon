@@ -25,7 +25,7 @@ const WalletContainer: FC<WalletContainerProps> = ({ wallet }) => {
     };
 
     asyncFunction();
-  }, []);
+  }, [wallet.id]);
 
   return (
     <div className="mt-4 space-y-4">

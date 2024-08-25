@@ -1,16 +1,15 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import dynamic from 'next/dynamic';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import dynamic from "next/dynamic";
 import Main from "@/components/Main";
 import { cn } from "@/lib/utils";
-import MiniKitProvider from '@/lib/providers/minikit-provider';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Argiefy Club',
-  description: 'World ID for Argiefy Club - Aleph Hackathon',
+  title: "Argiefy Club",
+  description: "World ID for Argiefy Club - Aleph Hackathon",
 };
 
 export default function RootLayout({
@@ -18,8 +17,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const MinikitProvider = dynamic(
-    () => import('@/lib/providers/minikit-provider'),
+  const MiniKitProvider = dynamic(
+    () => import("@/lib/providers/minikit-provider"),
     { ssr: false }
   );
 
