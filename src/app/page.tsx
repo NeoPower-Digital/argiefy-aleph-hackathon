@@ -81,7 +81,7 @@ export default function Home() {
 
   return (
     <main className="max-w-2xl mx-auto">
-      Minikit {isMiniKit ? "is" : "is not"} installed
+      Minikit {MiniKit?.isInstalled() ? "is" : "is not"} installed
       <ArgiefyClub
         isVerified={isUserVerified}
         handleClick={verifyWithMiniKit}

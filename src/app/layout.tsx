@@ -24,11 +24,11 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="notranslate dark">
-      <MiniKitProvider>
-        <body
-          className={cn(`h-svh bg-background antialiased`, inter.className)}
-          suppressHydrationWarning
-        >
+      <body
+        className={cn(`h-svh bg-background antialiased`, inter.className)}
+        suppressHydrationWarning
+      >
+        <MiniKitProvider>
           <div className="sticky top-0 z-50 flex w-full items-center justify-between bg-muted p-2 pl-4 h-14">
             <div className="w-full flex justify-center">
               <p className={"text-lg px-5 w-full max-w-md font-semibold"}>
@@ -38,8 +38,8 @@ export default function RootLayout({
           </div>
 
           <Main>{children}</Main>
-        </body>
-      </MiniKitProvider>
+        </MiniKitProvider>
+      </body>
     </html>
   );
 }
