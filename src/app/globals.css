@@ -5,65 +5,122 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --foreground: 222.2 47.4% 11.2%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --primary: 201.5 100% 52.9%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 48 100% 50%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 58%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --background: 210 44.4% 3.5%;
+    --foreground: 213 31% 91%;
+
+    --muted: 212 46% 14%;
+    --muted-foreground: 215.4 16.3% 56.9%; /* TODO */
+
+    --accent: 216 34% 17%; /* TODO */
+    --accent-foreground: 210 40% 98%; /* TODO */
+
+    --popover: 224 71% 4%; /* TODO */
+    --popover-foreground: 215 20.2% 65.1%; /* TODO */
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%; /* TODO */
+
+    --card: 224 71% 4%; /* TODO */
+    --card-foreground: 213 31% 91%; /* TODO */
+
+    --primary: 201.5 100% 52.9%;
+    --primary-foreground: 222.2 47.4% 1.2%; /* TODO */
+
+    --secondary: 48 100% 50%;
+    --secondary-foreground: 222.2 47.4% 1.2%; /* TODO */
+
+    --destructive: 0 63% 31%; /* TODO */
+    --destructive-foreground: 210 40% 98%; /* TODO */
+
+    --ring: 216 34% 17%; /* TODO */
+
+    --radius: 1rem;
   }
 }
 
 @layer base {
   * {
+    /* Workaround for small screens */
+    @media (max-height: 500px) {
+      font-size: 12px;
+    }
+
+    @media (min-height: 500px) and (max-height: 620px) {
+      font-size: 14px;
+    }
+
     @apply border-border;
+    transition: background-color 200ms ease-in;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
   }
+
+  /* Hide arrows in number inputs */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #333;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #777;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: #999;
+  }
+}
+
+nav[data-orientation="vertical"] > div {
+  @apply w-full;
 }
