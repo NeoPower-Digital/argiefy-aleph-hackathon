@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
 import {
   handleVerifyIdKit,
   handleMiniKitSubscription,
@@ -16,6 +15,7 @@ import {
 } from '@worldcoin/minikit-js';
 import { useEffect, useState } from 'react';
 import ArgiefyClub from '@/components/ArgiefyClub';
+import { Button } from '@/components/ui/Button';
 
 const worldcoinAppId = process.env.NEXT_PUBLIC_APP_ID as `app_${string}`;
 const IncognitoActions = {
@@ -88,7 +88,7 @@ export default function Home() {
       >
         {({ open }) => (
           // This is the button that will open the IDKit modal
-          <button onClick={open}>Verify with IDKit</button>
+          <Button onClick={open}>Verify with IDKit</Button>
         )}
       </IDKitWidget>
       {/* </Button> */}
