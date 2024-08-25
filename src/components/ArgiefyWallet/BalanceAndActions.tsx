@@ -4,7 +4,7 @@ import { FC, useMemo } from "react";
 
 interface BalanceAndActionsProps {
   address: string;
-  tokenBalances: TokenBalance[];
+  tokenBalances: TokenBalance[] | null;
 }
 
 const BalanceAndActions: FC<BalanceAndActionsProps> = ({
